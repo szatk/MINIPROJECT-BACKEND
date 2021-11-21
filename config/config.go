@@ -2,18 +2,19 @@ package config
 
 import (
 	"MINIPROJECT-BACKEND/model"
+
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
 
 var DB *gorm.DB
-	
+
 // fungsi connect ke mySQL
 func InitDB() {
 	dsn := "root:567890@tcp(127.0.0.1:3306)/atikahperca?charset=utf8mb4&parseTime=True&loc=Local"
-  	var err error
+	var err error
 	DB, err = gorm.Open(mysql.Open(dsn), &gorm.Config{})
-	if (err != nil) {
+	if err != nil {
 		panic(err)
 	}
 }
@@ -21,6 +22,7 @@ func InitDB() {
 // fungsi bikin tabel otomatis
 func InitMigration() {
 	DB.AutoMigrate(
+		&model.UserLogin{},
 		&model.User{},
 	)
 }

@@ -5,7 +5,7 @@ import (
 	"MINIPROJECT-BACKEND/model"
 )
 
-func CreateUser(user model.User) model.User {
+func CreateUser(user model.UserLogin) model.UserLogin {
 	config.DB.Create(&user)
 	return user
 }
