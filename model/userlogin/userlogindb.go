@@ -1,7 +1,7 @@
 package userlogin
 
 import (
-	"os/users"
+	"MINIPROJECT-BACKEND/model/users"
 	"time"
 
 	"gorm.io/gorm"
