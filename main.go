@@ -1,19 +1,17 @@
 package main
 
 import (
-	"MINIPROJECT-BACKEND/config"
 	"MINIPROJECT-BACKEND/route"
-	"github.com/labstack/echo"
+
+	"github.com/labstack/echo/v4"
 )
 
 func main() {
-	config.InitDB()
-	// config.InitLog()
-	config.InitMigration()
+	// config.InitDB()
+	// // config.InitLog()
+	// config.InitMigration()
 
 	app := echo.New()
-	
-	route.NewUser(app)
-	
+	route.InitRoute(app)
 	app.Start(":8080")
 }
