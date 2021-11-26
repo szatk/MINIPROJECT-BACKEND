@@ -6,7 +6,7 @@ import (
 	"gorm.io/gorm"
 )
 
-type OperatorPerca struct {
+type PekerjaPerca struct {
 	Id             uint           `gorm:"primaryKey; unique; not null" json:"id"`
 	NIK            string         `gorm:"size:255; not null; unique" json:"nik"`
 	HousePercaId   uint           `json:"housePercaId"`
