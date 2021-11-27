@@ -10,7 +10,7 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-// Register House Perca
+// Create House Perca
 func HousePercaRegister(c echo.Context) error {
 	var housePerca houseperca.HousePerca
 	c.Bind(&housePerca)
