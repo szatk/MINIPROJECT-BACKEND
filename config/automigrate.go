@@ -7,7 +7,8 @@ import (
 	"MINIPROJECT-BACKEND/model/users"
 )
 
-func Migrate() {
+// fungsi bikin tabel otomatis
+func InitMigration() {
 	DB.AutoMigrate(
 		&users.User{},
 		&userlogin.LoginDataUsers{},
