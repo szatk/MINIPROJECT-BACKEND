@@ -3,7 +3,6 @@ package config
 import (
 	"MINIPROJECT-BACKEND/model/houseperca"
 	"MINIPROJECT-BACKEND/model/transaksi"
-	"MINIPROJECT-BACKEND/model/userlogin"
 	"MINIPROJECT-BACKEND/model/users"
 )
 
@@ -11,7 +10,7 @@ import (
 func InitMigration() {
 	DB.AutoMigrate(
 		&users.User{},
-		&userlogin.LoginDataUsers{},
+		&users.LoginDataUsers{},
 		&houseperca.HousePerca{},
 		&houseperca.PekerjaPerca{},
 		&transaksi.JenisPerca{},
