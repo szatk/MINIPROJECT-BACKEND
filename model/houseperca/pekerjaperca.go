@@ -7,9 +7,9 @@ import (
 )
 
 type PekerjaPerca struct {
-	Id             uint           `gorm:"primaryKey; unique; not null" json:"id"`
+	Id             int            `gorm:"primaryKey; auto_increment; not null" json:"id"`
 	NIK            string         `gorm:"size:255; not null; unique" json:"nik"`
-	HousePercaId   uint           `json:"housePercaId"`
+	HousePercaId   uint           `json:"HousePercaId"`
 	NamaDepan      string         `gorm:"size:255; not null" json:"namaDepan"`
 	NamaBelakang   string         `gorm:"size:255;not null" json:"namaBelakang"`
 	TanggalLahir   string         `gorm:"type:date;not null" json:"tanggalLahir"`
