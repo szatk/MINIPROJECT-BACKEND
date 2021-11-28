@@ -82,8 +82,8 @@ func GetJenisPercaById(c echo.Context) error {
 }
 
 // Update Jenis Perca
-func UpdateJenisSampah(c echo.Context) error {
-	var JenisPerca transaksi.JenisPerca
+func UpdateJenisPerca(c echo.Context) error {
+	var jenisPerca transaksi.JenisPerca
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
 		return c.JSON(http.StatusUnprocessableEntity, respon.BaseRespon{
@@ -93,7 +93,7 @@ func UpdateJenisSampah(c echo.Context) error {
 		})
 	}
 
-	result := config.DB.First(&JenisPerca, id)
+	result := config.DB.First(&jenisPerca, id)
 	if result.Error != nil {
 		return c.JSON(http.StatusNotAcceptable, respon.BaseRespon{
 			Code:    http.StatusNotAcceptable,
@@ -102,8 +102,8 @@ func UpdateJenisSampah(c echo.Context) error {
 		})
 	}
 
-	c.Bind(&JenisPerca)
-	result = config.DB.Save(&JenisPerca)
+	c.Bind(&jenisPerca)
+	result = config.DB.Save(&jenisPerca)
 	if result.Error != nil {
 		return c.JSON(http.StatusInternalServerError, respon.BaseRespon{
 			Code:    http.StatusInternalServerError,
@@ -115,7 +115,7 @@ func UpdateJenisSampah(c echo.Context) error {
 	return c.JSON(http.StatusAccepted, respon.BaseRespon{
 		Code:    http.StatusAccepted,
 		Message: "Successful update data",
-		Data:    &JenisPerca,
+		Data:    &jenisPerca,
 	})
 }
 

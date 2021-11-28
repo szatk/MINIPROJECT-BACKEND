@@ -88,7 +88,7 @@ func GetPekerjaPecraById(c echo.Context) error {
 	})
 }
 
-// Update House Perca
+// Update Pekerja Perca
 func UpdatePekerjaPerca(c echo.Context) error {
 	var pekerja houseperca.PekerjaPerca
 

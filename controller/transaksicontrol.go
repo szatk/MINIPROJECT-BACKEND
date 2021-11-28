@@ -10,8 +10,8 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-// Add Transaction
-func AddTransaction(c echo.Context) error {
+// Add Transaksi
+func AddTransaksi(c echo.Context) error {
 	var transaction transaksi.TransaksiReq
 	c.Bind(&transaction)
 
@@ -54,8 +54,8 @@ func AddTransaction(c echo.Context) error {
 	})
 }
 
-// Get All Data Transaction
-func GetAllTransaction(c echo.Context) error {
+// Get All Data Transaksi
+func GetAllTransaksi(c echo.Context) error {
 	var trans = []transaksi.Transaksi{}
 
 	result := config.DB.Preload("DetailTransaction").Find(&trans)
@@ -74,8 +74,8 @@ func GetAllTransaction(c echo.Context) error {
 	})
 }
 
-// Get Jenis Sampah by ID
-func GetTransactionById(c echo.Context) error {
+// Get Transaksi by ID
+func GetTransaksiById(c echo.Context) error {
 	var trans transaksi.Transaksi
 
 	id, err := strconv.Atoi(c.Param("id"))
@@ -104,8 +104,8 @@ func GetTransactionById(c echo.Context) error {
 	})
 }
 
-// Update Bank Sampah
-func UpdateTansaction(c echo.Context) error {
+// Update Transaksi
+func UpdateTransaksi(c echo.Context) error {
 	var transaction transaksi.Transaksi
 
 	id, err := strconv.Atoi(c.Param("id"))

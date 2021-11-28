@@ -19,8 +19,11 @@ func main() {
 	config.InitMigration()
 
 	app := echo.New()
-	
+
 	route.NewHousePerca(app)
+	route.NewJenisPerca(app)
+	route.NewPekerjaPerca(app)
+	route.NewTransaksiPerca(app)
 
 	app.Start(":8080")
 }

@@ -1,7 +1,6 @@
-package userlogin
+package users
 
 import (
-	"MINIPROJECT-BACKEND/model/users"
 	"time"
 
 	"gorm.io/gorm"
@@ -15,5 +14,5 @@ type LoginDataUsers struct {
 	CreatedAt time.Time      `json:"createdAt"`
 	UpdatedAt time.Time      `json:"updatedAt"`
 	DeletedAt gorm.DeletedAt `gorm:"index" json:"deletedAt"`
-	User      users.User     `gorm:"ForeignKey:UserId;References:Id;constraint:OnDelete:CASCADE,OnUpdate:CASCADE;"`
+	User      User           `gorm:"ForeignKey:UserId;References:Id;constraint:OnDelete:CASCADE,OnUpdate:CASCADE;"`
 }
