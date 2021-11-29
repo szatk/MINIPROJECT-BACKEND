@@ -17,7 +17,7 @@ func AddTransaksi(c echo.Context) error {
 
 	var totalQty int
 	var totalPrice float32
-	for _, item := range transaction.Detail {
+	for _, item := range transaction.DetailTransaksi {
 		totalQty += item.Qty
 		totalPrice += item.TotalPrice
 	}
@@ -32,7 +32,7 @@ func AddTransaksi(c echo.Context) error {
 		TotalQty:        transaction.TotalQty,
 		TotalTransaksi:  transaction.TotalTransaksi,
 		Status:          transaction.Status,
-		DetailTransaksi: transaction.Detail,
+		DetailTransaksi: transaction.DetailTransaksi,
 	})
 
 	if res.Error != nil {
@@ -50,15 +50,15 @@ func AddTransaksi(c echo.Context) error {
 	return c.JSON(http.StatusCreated, respon.BaseRespon{
 		Code:    http.StatusCreated,
 		Message: "Successful create data",
-		Data:    &transaction,
+		Data:    &trans,
 	})
 }
 
 // Get All Data Transaksi
 func GetAllTransaksi(c echo.Context) error {
-	var trans = []transaksi.Transaksi{}
+	var transaction = []transaksi.Transaksi{}
 
-	result := config.DB.Preload("DetailTransaction").Find(&trans)
+	result := config.DB.Preload("DetailTransaksi").Find(&transaction)
 	if result.Error != nil {
 		return c.JSON(http.StatusGone, respon.BaseRespon{
 			Code:    http.StatusGone,
@@ -70,13 +70,13 @@ func GetAllTransaksi(c echo.Context) error {
 	return c.JSON(http.StatusOK, respon.BaseRespon{
 		Code:    http.StatusOK,
 		Message: "Successful retrieve data",
-		Data:    &trans,
+		Data:    &transaction,
 	})
 }
 
 // Get Transaksi by ID
 func GetTransaksiById(c echo.Context) error {
-	var trans transaksi.Transaksi
+	var transaction transaksi.Transaksi
 
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
@@ -87,7 +87,7 @@ func GetTransaksiById(c echo.Context) error {
 		})
 	}
 
-	result := config.DB.Preload("DetailTransaction").First(&trans, id)
+	result := config.DB.Preload("DetailTransaksi").First(&transaction, id)
 
 	if result.Error != nil {
 		return c.JSON(http.StatusGone, respon.BaseRespon{
@@ -100,7 +100,7 @@ func GetTransaksiById(c echo.Context) error {
 	return c.JSON(http.StatusOK, respon.BaseRespon{
 		Code:    http.StatusOK,
 		Message: "Successful retrieve data",
-		Data:    &trans,
+		Data:    &transaction,
 	})
 }
 
@@ -117,7 +117,7 @@ func UpdateTransaksi(c echo.Context) error {
 		})
 	}
 
-	result := config.DB.Preload("DetailTransaction").First(&transaction, id)
+	result := config.DB.Preload("DetailTransaksi").First(&transaction, id)
 	if result.Error != nil {
 		return c.JSON(http.StatusGone, respon.BaseRespon{
 			Code:    http.StatusGone,

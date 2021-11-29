@@ -28,11 +28,11 @@ type DetailTransaksi struct {
 }
 
 type TransaksiReq struct {
-	HousePercaId   uint              `json:"housePercaId"`
-	UserId         uint              `json:"userId"`
-	PekerjaPercaId uint              `json:"pekerjaId"`
-	TotalQty       int               `json:"totalQty"`
-	TotalTransaksi float32           `json:"totalTransaksi"`
-	Status         string            `json:"status"`
-	Detail         []DetailTransaksi `json:"detail"`
+	HousePercaId    uint              `json:"housePercaId"`
+	UserId          uint              `json:"userId"`
+	PekerjaPercaId  uint              `json:"pekerjaId"`
+	TotalQty        int               `json:"totalQty"`
+	TotalTransaksi  float32           `json:"totalTransaksi"`
+	Status          string            `json:"status"`
+	DetailTransaksi []DetailTransaksi `json:"detailTransaksi"`
 }
