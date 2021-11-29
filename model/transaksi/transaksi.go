@@ -10,7 +10,7 @@ type Transaksi struct {
 	Id              uint           `gorm:"PrimaryKey; Auto Increment; Not Null" json:"id"`
 	HousePercaId    uint           `gorm:"not null" json:"housePercaId"`
 	UserId          uint           `gorm:"not null; ForeignKey; constraint:OnUpdate:CASCADE,OnDelete:CASCADE;" json:"userId"`
-	PekerjaPercaId  uint           `gorm:"not null" json:"pekerjaId"`
+	PekerjaPercaId  uint           `gorm:"not null" json:"pekerjaPercaId"`
 	TotalQty        int            `gorm:"size:10" json:"totalQty"`
 	TotalTransaksi  float32        `gorm:"type:decimal(13,2)" json:"totalTransaksi"`
 	Status          string         `gorm:"size:255;default:process" json:"status"`
