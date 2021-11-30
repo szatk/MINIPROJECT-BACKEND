@@ -22,7 +22,7 @@ type DBConfig struct {
 // postgresSQL
 func (dbConfig *DBConfig) DbURLMain() string {
 	return fmt.Sprintf(
-		"host=%s user=%s password=%s dbname=%s port=%s sslmode=require TimeZone=Asia/Jakarta",
+		"root:567890@tcp(127.0.0.1:3306)/atikahperca?charset=utf8mb4&parseTime=True&loc=Local",
 		dbConfig.Host,
 		dbConfig.User,
 		dbConfig.Password,
@@ -32,7 +32,7 @@ func (dbConfig *DBConfig) DbURLMain() string {
 }
 
 func Connection(dsn DBConfig) {
-	DB, err = gorm.Open(postgres.Open(dsn.DbURLMain()), &gorm.Config{})
+	DB, err = gorm.Open(mysql.Open(dsn.DbURLMain()), &gorm.Config{})
 
 	if err != nil {
 		fmt.Println("Status:", err)
