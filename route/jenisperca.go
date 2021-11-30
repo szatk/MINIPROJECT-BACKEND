@@ -1,6 +1,7 @@
 package route
 
 import (
+	"MINIPROJECT-BACKEND/config"
 	"MINIPROJECT-BACKEND/controller"
 	"os"
 
@@ -12,7 +13,7 @@ func JenisPercaRouter(route *echo.Group) {
 	jwtSecretKey := os.Getenv("SECRET_JWT")
 	jwt := middleware.JWT([]byte(jwtSecretKey))
 
-	api := controller.APIEnv{DB: Database.DB}
+	api := controller.APIEnv{DB: config.DB}
 
 	route.POST("jenisperca", api.AddJenisPerca, jwt)
 	route.GET("jenisperca", api.GetAllJenisPerca, jwt)

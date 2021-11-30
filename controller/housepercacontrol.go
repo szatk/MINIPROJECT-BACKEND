@@ -4,6 +4,7 @@ import (
 	"MINIPROJECT-BACKEND/config"
 	"MINIPROJECT-BACKEND/model/houseperca"
 	"MINIPROJECT-BACKEND/model/respon"
+	"MINIPROJECT-BACKEND/ojekperca/housepercaojek"
 	"fmt"
 	"net/http"
 	"strconv"
@@ -100,7 +101,7 @@ func (a *APIEnv) UpdateHousePerca(c echo.Context) error {
 		})
 	}
 
-	housePerca, exists, err := housepercaojek.GetHousePercaID(fmt.Sprint(id), a.DB)
+	housePerca, exists, err := housepercaojek.GetHousePercaByID(fmt.Sprint(id), a.DB)
 	if err != nil {
 		fmt.Println(err)
 		return c.JSON(http.StatusInternalServerError, respon.BaseRespon{
