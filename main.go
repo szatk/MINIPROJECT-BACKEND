@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 package main
 
 import (
@@ -56,4 +54,3 @@ func main() {
 
 // 	app.Start(":8080")
 // }
->>>>>>> OjekPerca
