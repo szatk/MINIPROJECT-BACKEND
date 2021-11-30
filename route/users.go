@@ -3,7 +3,7 @@ package route
 import (
 	"MINIPROJECT-BACKEND/config"
 	"MINIPROJECT-BACKEND/controller"
-	"MINIPROJECT-BACKEND/middleware"
+	"MINIPROJECT-BACKEND/Middleware"
 
 	"os"
 
@@ -17,7 +17,7 @@ func NewUserPerca (app *echo.Echo) {
 	
 	app.POST("/users", controller.UserRegister)
 	app.GET("/users", controller.GetAllUser)
-	app.GET("/users/:id", controller.GetUserById, middleware.AuthJWTMiddleware)
-	app.DELETE("/users/:id", controller.DeleteUser middleware.AuthJWTMiddleware)
-	app.PUT("/users/:id", controller.UpdateUser, middleware.AuthJWTMiddleware)
+	app.GET("/users/:id", controller.GetUserById, Middleware.AuthJWTMiddleware)
+	app.DELETE("/users/:id", controller.DeleteUser Middleware.AuthJWTMiddleware)
+	app.PUT("/users/:id", controller.UpdateUser, Middleware.AuthJWTMiddleware)
 }
