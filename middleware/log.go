@@ -1,4 +1,4 @@
-package middleware
+package Middleware
 
 import (
 	"MINIPROJECT-BACKEND/model/loginrequest"
