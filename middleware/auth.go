@@ -1,44 +1,56 @@
 package middleware
 
 import (
-	"net/http"
-	"strings"
+	"errors"
+	"os"
 	"time"
-	jwt "github.com/dgrijalva/jwt-go"
-	"github.com/labstack/echo"
+
+	"github.com/golang-jwt/jwt"
+	"github.com/labstack/echo/v4"
 )
 
-const key = "legal"
-
-func CreateToken(userId int) (string, error) {
-	claims := jwt.MapClaims{}
-	claims["authorized"] = true
-	claims["userId"] = userId
-	claims["exp"] = time.Now().Add(time.Hour).Unix()
-
-	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-	return token.SignedString([]byte(key))
-
+type JwtClaims struct {
+	UserId int `json:"userId"`
+	jwt.StandardClaims
 }
 
-func AuthJWTMiddleware(next echo.HandlerFunc) echo.HandlerFunc {
-	return func(c echo.Context) error {
-		authorizationFromHeader := c.Request().Header.Get("authorization")
-		if authorizationFromHeader == "" {
-			return c.String(http.StatusForbidden, "Forbidden")
-		}
+func GenerateTokenJWT(id int) (string, error) {
+	jwtSecretKey := os.Getenv("SECRET_JWT")
 
-		tokenString := strings.ReplaceAll(authorizationFromHeader, "Bearer ", "")
-
-		claims := jwt.MapClaims{}
-		token, err := jwt.ParseWithClaims(tokenString, &claims, func(t *jwt.Token) (interface{}, error) {
-			return []byte(key), nil
-		})
-		if err != nil && !token.Valid {
-			return c.String(http.StatusForbidden, "Token Salah")
-		}
-
-		c.Set("email", claims["userId"])
-		return next(c)
+	claims := JwtClaims{
+		id,
+		jwt.StandardClaims{
+			ExpiresAt: time.Now().Local().Add(time.Hour * 1).Unix(),
+		},
 	}
+
+	// out, err := json.Marshal(claims)
+	// if err != nil {
+	// 	panic(err)
+	// }
+
+	// fmt.Println(string(out))
+
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
+
+	jwtToken, err := token.SignedString([]byte(jwtSecretKey))
+
+	if err != nil {
+		return "", err
+	}
+
+	return jwtToken, nil
+}
+
+func GetClaimsUserId(c echo.Context) (int, error) {
+	user := c.Get("user")
+	if user != nil {
+		userJwt := user.(*jwt.Token)
+		if userJwt.Valid {
+			claims := userJwt.Claims.(jwt.MapClaims)
+			userId := claims["userId"].(float64)
+			return int(userId), nil
+		}
+	}
+	return 0, errors.New("failed create jwt")
 }

@@ -7,15 +7,9 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-// func main() {
-// 	config.Connection()
-// 	e := route.RouteVersion1()
-// 	e.Start(":8080")
-// }
-
 func main() {
 	config.InitDB()
-	// config.InitLog()
+	config.InitLog()
 	config.InitMigration()
 
 	app := echo.New()
@@ -24,6 +18,8 @@ func main() {
 	route.NewJenisPerca(app)
 	route.NewPekerjaPerca(app)
 	route.NewTransaksiPerca(app)
+	route.NewUserPerca(app)
+	route.NewLoginPerca(app)
 
 	app.Start(":8080")
 }
