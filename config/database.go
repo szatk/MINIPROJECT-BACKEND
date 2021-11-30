@@ -19,27 +19,6 @@ type DBConfig struct {
 	Password string
 }
 
-// // mysql
-// func (dbConfig *DBConfig) DbURLMain() string {
-// 	return fmt.Sprintf(
-// 		"%s:%s@tcp(%s:%s)/%s?charset=utf8&parseTime=True&loc=Local",
-// 		dbConfig.User,
-// 		dbConfig.Password,
-// 		dbConfig.Host,
-// 		dbConfig.Port,
-// 		dbConfig.DBName,
-// 	)
-// }
-
-// func Connection(dsn DBConfig) {
-// 	DB, err = gorm.Open(mysql.Open(dsn.DbURLMain()), &gorm.Config{})
-
-// 	if err != nil {
-// 		fmt.Println("Status:", err)
-// 	}
-// 	Migrate()
-// }
-
 // postgresSQL
 func (dbConfig *DBConfig) DbURLMain() string {
 	return fmt.Sprintf(
