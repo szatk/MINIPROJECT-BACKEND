@@ -4,14 +4,20 @@ import (
 	"MINIPROJECT-BACKEND/config"
 	"MINIPROJECT-BACKEND/model/houseperca"
 	"MINIPROJECT-BACKEND/model/respon"
+	"fmt"
 	"net/http"
 	"strconv"
 
 	"github.com/labstack/echo/v4"
+	"gorm.io/gorm"
 )
 
+type APIEnv struct {
+	DB *gorm.DB
+}
+
 // Create House Perca
-func HousePercaRegister(c echo.Context) error {
+func (a *APIEnv) HousePercaRegister(c echo.Context) error {
 	var housePerca houseperca.HousePerca
 	c.Bind(&housePerca)
 
@@ -32,7 +38,7 @@ func HousePercaRegister(c echo.Context) error {
 }
 
 // Get All House Perca Data
-func GetAllHousePerca(c echo.Context) error {
+func (a *APIEnv) GetAllHousePerca(c echo.Context) error {
 	var housePerca = []houseperca.HousePerca{}
 
 	result := config.DB.Find(&housePerca)
@@ -52,7 +58,7 @@ func GetAllHousePerca(c echo.Context) error {
 }
 
 // Get House Perca by ID
-func GetHousePercaById(c echo.Context) error {
+func (a *APIEnv) GetHousePercaById(c echo.Context) error {
 	var housePerca houseperca.HousePerca
 
 	id, err := strconv.Atoi(c.Param("id"))
@@ -82,7 +88,7 @@ func GetHousePercaById(c echo.Context) error {
 }
 
 // Update House Perca
-func UpdateHousePerca(c echo.Context) error {
+func (a *APIEnv) UpdateHousePerca(c echo.Context) error {
 	var housePerca houseperca.HousePerca
 
 	id, err := strconv.Atoi(c.Param("id"))
@@ -94,21 +100,20 @@ func UpdateHousePerca(c echo.Context) error {
 		})
 	}
 
-	result := config.DB.First(&housePerca, id)
-	if result.Error != nil {
-		return c.JSON(http.StatusNotAcceptable, respon.BaseRespon{
-			Code:    http.StatusNotAcceptable,
-			Message: "Data not Found",
+	housePerca, exists, err := housepercaojek.GetHousePercaID(fmt.Sprint(id), a.DB)
+	if err != nil {
+		fmt.Println(err)
+		return c.JSON(http.StatusInternalServerError, respon.BaseRespon{
+			Code:    http.StatusInternalServerError,
+			Message: "cannot retrieve data from database",
 			Data:    nil,
 		})
 	}
 
-	c.Bind(&housePerca)
-	result = config.DB.Save(&housePerca)
-	if result.Error != nil {
-		return c.JSON(http.StatusInternalServerError, respon.BaseRespon{
-			Code:    http.StatusInternalServerError,
-			Message: "Cannot Update data to database",
+	if !exists {
+		return c.JSON(http.StatusNotFound, respon.BaseRespon{
+			Code:    http.StatusNotFound,
+			Message: "data not found",
 			Data:    nil,
 		})
 	}
@@ -121,7 +126,7 @@ func UpdateHousePerca(c echo.Context) error {
 }
 
 // Delete House Perca
-func DeleteHousePerca(c echo.Context) error {
+func (a *APIEnv) DeleteHousePerca(c echo.Context) error {
 	var housePerca houseperca.HousePerca
 
 	id, err := strconv.Atoi(c.Param("id"))
