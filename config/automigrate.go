@@ -7,7 +7,7 @@ import (
 )
 
 // fungsi bikin tabel otomatis
-func InitMigration() {
+func Migrate() {
 	DB.AutoMigrate(
 		&users.User{},
 		&users.LoginDataUsers{},
